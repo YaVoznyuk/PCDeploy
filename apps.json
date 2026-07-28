@@ -1,0 +1,24 @@
+[
+    {
+        "Name": "Google Chrome",
+        "Check": "Google Chrome",
+        "Type": "winget",
+        "Id": "Google.Chrome"
+    },
+
+    {
+        "Name": "7-Zip",
+        "Check": "7-Zip",
+        "Type": "exe",
+        "Folder": "7Zip",
+        "Args": "/S"
+    },
+
+    {
+        "Name": "AnyDesk",
+        "Check": "AnyDesk",
+        "Type": "exe",
+        "Folder": "AnyDesk",
+        "Args": "--install --silent"
+    }
+]
