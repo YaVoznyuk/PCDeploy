@@ -16,28 +16,16 @@ if (-not $Principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administra
 }
 
 # Список програм
-$Apps = @(
-    @{
-        Name="Google Chrome"
-        Check="Google Chrome"
-        Folder="Chrome"
-        Args="/silent"
-    },
+$AppsFile = Join-Path $PSScriptRoot "apps.json"
 
-    @{
-        Name="7-Zip"
-        Check="7-Zip"
-        Folder="7Zip"
-        Args="/S"
-    },
+if(!(Test-Path $AppsFile))
+{
+    Write-Host "apps.json not found." -ForegroundColor Red
+    Pause
+    exit
+}
 
-    @{
-        Name="AnyDesk"
-        Check="AnyDesk"
-        Folder="AnyDesk"
-        Args="--install --silent"
-    }
-)
+$Apps = Get-Content $AppsFile | ConvertFrom-Json
 
 function Test-AppInstalled
 {
