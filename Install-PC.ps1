@@ -82,38 +82,69 @@ function Install-App
         return
     }
 
-    $Installer = Find-Installer $App.Folder
-
-    if(!$Installer)
+    # Встановлення через Winget
+    if($App.Type -eq "winget")
     {
-        Write-Host "Installer not found." -ForegroundColor Red
+        Write-Host "Installing via winget..."
+
+        winget install `
+            --id $App.Id `
+            --silent `
+            --accept-package-agreements `
+            --accept-source-agreements
+
+        if(Test-AppInstalled $App.Check)
+        {
+            Write-Host "Installed successfully." -ForegroundColor Green
+        }
+        else
+        {
+            Write-Host "Installation finished. Verification failed." -ForegroundColor Yellow
+        }
+
         return
     }
 
-    Write-Host "Installing..."
+    # Встановлення через локальний EXE/MSI
+    if($App.Type -eq "exe")
+    {
+        $Installer = Find-Installer $App.Folder
 
-    if($Installer.Extension -eq ".msi")
-    {
-        Start-Process msiexec.exe `
-            -ArgumentList "/i `"$($Installer.FullName)`" /qn /norestart" `
-            -Wait
-    }
-    else
-    {
-        Start-Process `
-            -FilePath $Installer.FullName `
-            -ArgumentList $App.Args `
-            -Wait
+        if(!$Installer)
+        {
+            Write-Host "Installer not found." -ForegroundColor Red
+            return
+        }
+
+        Write-Host "Installing..."
+
+        if($Installer.Extension -eq ".msi")
+        {
+            Start-Process msiexec.exe `
+                -ArgumentList "/i `"$($Installer.FullName)`" /qn /norestart" `
+                -Wait
+        }
+        else
+        {
+            Start-Process `
+                -FilePath $Installer.FullName `
+                -ArgumentList $App.Args `
+                -Wait
+        }
+
+        if(Test-AppInstalled $App.Check)
+        {
+            Write-Host "Installed successfully." -ForegroundColor Green
+        }
+        else
+        {
+            Write-Host "Installation finished. Verification failed." -ForegroundColor Yellow
+        }
+
+        return
     }
 
-    if(Test-AppInstalled $App.Check)
-    {
-        Write-Host "Installed successfully." -ForegroundColor Green
-    }
-    else
-    {
-        Write-Host "Installation finished. Verification failed." -ForegroundColor Yellow
-    }
+    Write-Host "Unknown installation type: $($App.Type)" -ForegroundColor Red
 }
 
 Clear-Host
