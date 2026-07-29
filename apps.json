@@ -7,11 +7,38 @@
     },
 
     {
+        "Name": "Whatsapp",
+        "Check": "Whatsapp",
+        "Type": "winget",
+        "Id": "9NKSQGP7F2NH"
+    },
+
+    {
+        "Name": "Mattermost",
+        "Check": "Mattermost",
+        "Type": "winget",
+        "Id": "Mattermost.MattermostDesktop"
+    },
+
+    {
+        "Name": "Viber",
+        "Check": "Viber",
+        "Type": "winget",
+        "Id": "Rakuten.Viber"
+    },
+
+    {
+        "Name": "Bitwarden",
+        "Check": "Bitwarden",
+        "Type": "winget",
+        "Id": "Bitwarden.Bitwarden"
+    },
+
+    {
         "Name": "7-Zip",
         "Check": "7-Zip",
-        "Type": "exe",
-        "Folder": "7Zip",
-        "Args": "/S"
+        "Type": "winget",
+        "Id": "7zip.7zip"
     },
 
     {
@@ -20,5 +47,22 @@
         "Type": "exe",
         "Folder": "AnyDesk",
         "Args": "--install --silent"
+    },
+    
+    {
+        "Name": "MSOffice",
+        "Check": "MSOffice",
+        "Type": "exe",
+        "Folder": "MSOffice",
+        "Args": "/quiet /norestart"
+    },
+
+    {
+        "Name": "Adobe Acrobat Pro",
+        "Check": "Adobe Acrobat Pro",
+        "Type": "exe",
+        "Folder": "Adobe Acrobat Pro",
+        "Args": "--interactive"
     }
+
 ]
